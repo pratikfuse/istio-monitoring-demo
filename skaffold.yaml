@@ -1,0 +1,29 @@
+apiVersion: skaffold/v2beta26
+kind: Config
+metadata:
+  name: ingress-demo
+build:
+  artifacts:
+    - image: frontend
+      context: src/frontend
+      docker:
+        dockerfile: Dockerfile
+    - image: backend
+      context: src/backend
+      docker:
+        dockerfile: Dockerfile
+    - image: middleware
+      context: src/middleware
+      docker:
+        dockerfile: Dockerfile
+deploy:
+  kubectl:
+    manifests:
+      - "loadbalancer.yaml"
+      - "prometheus.yaml"
+      - "grafana.yaml"
+      - "kiali.yaml"
+      - "frontend.yaml"
+      - "backend.yaml"
+      - "middleware.yaml"
+      - "ingress-istio.yaml"
