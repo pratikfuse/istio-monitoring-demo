@@ -7,7 +7,7 @@ spec:
     istio: ingressgateway # use Istio default gateway implementation
   servers:
     - port:
-        number: 80
+        number: 9000
         name: http
         protocol: HTTP
       hosts:
@@ -24,16 +24,7 @@ spec:
     - frontend-gateway
   http:
     # Fault injection with istio on frontend service
-    - fault:
-        abort:
-          httpStatus: 500
-          percentage:
-            value: 0
-        delay:
-          percentage:
-            value: 50
-          fixedDelay: 1s
-      match:
+    - match:
         - uri:
             prefix: /
       route:
